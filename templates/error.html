@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    高俊斌的个人空间|错误
+{% endblock %}
+
+{% block header_extends %}
+    <link rel="stylesheet" href="{% static '/css/home.css' %}">
+{% endblock %}
+
+{% block nav_home_active %}
+    active
+{% endblock %}
+
+{% block content %}
+    {{ message }}<a href="{{ redirect_to }}">返回页面</a>
+{% endblock %}

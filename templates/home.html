@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    高俊斌的个人空间|首页
+{% endblock %}
+
+{% block header_extends %}
+    <link rel="stylesheet" href="{% static '/css/home.css' %}">
+{% endblock %}
+
+{% block nav_home_active %}
+    active
+{% endblock %}
+
+{% block content %}
+    <h3 class="home_content">
+        欢迎浏览我的网站，随便看看，谢谢...
+    </h3>
+{% endblock %}
