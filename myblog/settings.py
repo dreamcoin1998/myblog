@@ -25,7 +25,7 @@ SECRET_KEY = 'k!f2svd05ycycfaa)dic9f)@um=0nb#r+5(oyu-_os5x%db&pb'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost ', '.gaoblog.com',]
+ALLOWED_HOSTS = ['*',]
 
 
 # Application definition
