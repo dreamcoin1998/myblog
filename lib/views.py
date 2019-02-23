@@ -95,6 +95,7 @@ def blogs_with_type(request, blog_type_id):
 
 def blogs_with_date(request, year, month):
     context = {}
+    type_list = Type_all.objects.annotate(num_article=Count('article')).filter(num_article__gt=0)
     articles = Article.objects.filter(pub_time__year=year, pub_time__month=month)
     paginator = Paginator(articles, 5)
     page_num = request.GET.get('page', 1)  # 获取页码参数
@@ -111,6 +112,7 @@ def blogs_with_date(request, year, month):
     if page_range[-1] != paginator.num_pages:
         page_range.append(paginator.num_pages)
 
+    context['type_num'] = type_list
     context['blog_with_date'] = '%s年%s月' % (year, month)
     context['page_range'] = page_range
     context['page_of_articles'] = page_of_articles
