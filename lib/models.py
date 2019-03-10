@@ -1,9 +1,9 @@
 from django.db import models
 from django.contrib.auth.admin import User
-from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.contenttypes.models import ContentType
 from read_statistics.models import ReadNum
 from django.db.models.fields import exceptions
+from DjangoUeditor.models import UEditorField
 
 class test():
     def read_num(self):
@@ -25,7 +25,7 @@ class Article(models.Model, test):
     author = models.ForeignKey(User, on_delete=models.DO_NOTHING, verbose_name="作者")
     pub_time = models.DateTimeField(auto_now_add=True, verbose_name="发布时间")
     update_time = models.DateTimeField(auto_now=True, verbose_name="更新时间")
-    text = RichTextUploadingField(blank=False, verbose_name="正文")
+    text = UEditorField(blank=False, verbose_name="正文")
     is_deleted = models.BooleanField(default=False, verbose_name="是否删除")
     blog_type = models.ForeignKey(Type_all, on_delete=models.DO_NOTHING, verbose_name="文章类型")
     class Meta:
@@ -33,9 +33,3 @@ class Article(models.Model, test):
 
     def __str__(self):
         return self.title
-
-'''
-class ReadNum(models.Model):
-    read_number = models.PositiveIntegerField(default=0, verbose_name="阅读数", editable=False)
-    article = models.OneToOneField('Article', on_delete=models.DO_NOTHING)
-'''

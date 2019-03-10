@@ -13,11 +13,21 @@
     active
 {% endblock %}
 
-{% block content %}
+{% block about %}
+    <div class="header-banner" style="text-align: center; min-height: 257px; position: relative; margin-top: -30px; padding-top: 75px; margin-bottom: 20px; background-color: #4F5893;">
+        <div class="container" style="padding-right: 15px;padding-left: 15px;margin-right: auto;margin-left: auto;color: #fff;">
+            <h1 style="font-size: 3em;margin-bottom: 12px;">～欢迎登录～</h1>
+            <p style="font-weight: 300;line-height: 1.4;font-size: 1.5em;color: #B9BFE4;margin: 5px 0;">正确输入您的用户名和密码之后</p>
+            <p style="font-weight: 300;line-height: 1.4;font-size: 1.5em;color: #B9BFE4;margin: 5px 0;">您将可以对博客文章进行评论</p>
+        </div>
+    </div>
+{% endblock %}
 
+
+{% block content %}
     <div class="containter">
         <div class="row">
-            <div class="col-xs-4 col-xs-offset-4">
+            <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
                 <div class="panel panel-default">
                   <div class="panel-heading">登录</div>
                   <div class="panel-body">
@@ -36,6 +46,4 @@
             </div>
         </div>
     </div>
-
-
 {% endblock %}

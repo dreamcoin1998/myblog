@@ -24,12 +24,14 @@ urlpatterns = [
     path('', include('lib.urls')),
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-    path('ckeditor', include('ckeditor_uploader.urls')),
+    path('ueditor/', include('DjangoUeditor.urls')),
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
     path('register/', views.register, name='register'),
     path('user_info/', views.user_info, name='user_info'),
     path('comment/', include('comment.urls')),
+    path('change_first_name/', views.change_first_name, name='change_first_name'),
+    path('change_pwd/', views.change_password, name='change_pwd'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

@@ -6,12 +6,12 @@
 {% block header_extends %}
 <link rel="stylesheet" href="{% static '/css/index.css' %}">
 {% endblock %}
-
+{% block about %}{% endblock %}
 {% block content %}
     <div class="container">
         <div class="row">
             <div class="col-xs-10 col-xs-offset-1">
-                <h3>{{ article.title }}</h3>
+                <h3 style="margin-top: 80px;margin-bottom: 20px;">{{ article.title }}</h3>
                 <ul class="blog-info-description">
                     <li>作者：{{ article.author }}</li>
                     <li>发布时间：{{ article.pub_time|date:'Y.m.d G:i' }}</li>
@@ -52,7 +52,7 @@
                         <form action="{% url 'update_comment' %}" method="post" style="overflow: hidden">
                             {% csrf_token %}
                             <div class="form-group">
-                                <label for="comment_text">{{ user.username }}，欢迎评论～</label>
+                                <label for="comment_text">{{ user.first_name }}，欢迎评论～</label>
                                 <textarea id="comment_text" name="text" class="form-control" rows="4"></textarea>
                             </div>
 
@@ -71,7 +71,7 @@
                     <h3 class="comment-area-title">评论列表</h3>
                     {% for comment in comments %}
                         <div>
-                            <p><strong class="text-danger">{{ comment.user.username }}</strong>
+                            <p><strong class="text-danger">{{ comment.user.first_name }}</strong>
                                 ({{ comment.comment_time|date:'Y.m.d G:i' }})：</p>
                             <strong>{{ comment.text }}</strong>
                         </div>
@@ -83,4 +83,28 @@
         </div>
     </div>
 
+{% endblock %}
+{% block foot %}
+    <div id="footer" class="page-bottom" style="width: 100%;clear: both;background: #e7e7e7;margin-top: 2.5em;padding: 1em 0 0;color: #777;position: absolute;">
+        <div class="container" style="padding-right: 15px;padding-left: 15px;margin-right: auto;margin-left: auto;">
+            <div class="col-sm-6 hidden-xs">
+                <div class="content">
+                    <h4 class="title" style="color: #424242;font-weight: bold;border-bottom: 1px solid #aaa;padding-bottom: 7px;margin-bottom: 1em;margin-top: 1em;">关于本站</h4>
+                    <p>1、基于Django2.0+Bootstrap3开发</p>
+                    <p>2、主要发表本人的技术博客</p>
+                    <p>3、本站于 2019-2-23 开始建站</p>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="content">
+                    <h4 class="title" style="color: #424242;font-weight: bold;border-bottom: 1px solid #aaa;padding-bottom: 7px;margin-bottom: 1em;margin-top: 1em;">建议反馈</h4>
+                    <p>1、可在相应的博文底下评论</p>
+                    <p>2、发邮件到1285338586@qq.com</p>
+                </div>
+            </div>
+        </div>
+        <div class="copyright" style="text-align: center;padding: 0.5em 0;margin-top: 1.5em;background: #4F5893;color: #e7e7e7">
+            <span>闽ICP备19002967号-1 | Copyright&copy;2019 gaoblog.cn 版权所有</span>
+        </div>
+    </div>
 {% endblock %}

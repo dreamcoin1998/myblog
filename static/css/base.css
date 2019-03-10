@@ -1,6 +1,7 @@
 *{
     margin:0;
     padding:0;
+    font-size: 14px;
 }
 
 div.comment-area{
@@ -13,3 +14,4 @@ h3.comment-area-title{
 ul.navbar-right{
     margin-right: 0;
 }
+

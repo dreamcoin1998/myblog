@@ -14,7 +14,44 @@
 {% endblock %}
 
 {% block content %}
-    <h3 class="home_content">
-        欢迎浏览我的网站，随便看看，谢谢...
-    </h3>
+    <div style="width: 750px;padding-right: 15px;padding-left: 15px;margin-right: auto;margin-left: auto;">
+        <div class="content-item">
+            <h4 class="content-item-title">
+                <span class="glyphicon glyphicon-pencil"></span>
+                <span>博客</span>
+                <span class="content-more">
+                    共{{ article_count }}篇博客
+                    <a href="/blog/">more&gt;</a>
+                </span>
+            </h4>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="home-block">
+                        <h4 style="border-bottom: 1px #ccc solid;padding-bottom: 10px;font-weight: bold;font-size: 18px;margin-top: 10px;margin-bottom: 10px;">博客分类</h4>
+                        <ul>
+                            {% for article in article_list %}
+                                <li >
+                                    <a href="{% url 'lib:blog_with_type' article.pk %}" style="color: black;">{{ article.type_name }}({{ article.num_article }})</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="home-block">
+                        <h4 style="border-bottom: 1px #ccc solid;padding-bottom: 10px;font-weight: bold;font-size: 18px;margin-top: 10px;margin-bottom: 10px;">时间分类</h4>
+                        <ul>
+                            {% for blog_date, blog_count in article_dates.items %}
+                                <li>
+                                    <a href="{% url 'lib:blogs_with_date' blog_date.year blog_date.month %}" style="color: black;">
+                                        {{ blog_date | date:'Y年m月'}}({{ blog_count }})
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

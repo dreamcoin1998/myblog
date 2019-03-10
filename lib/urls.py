@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 app_name = 'lib'
 urlpatterns = [
@@ -6,4 +6,5 @@ urlpatterns = [
     path('detail/<int:id>', views.detail, name='article_detail'),
     path('index/<int:blog_type_id>', views.blogs_with_type, name='blog_with_type'),
     path('date/<int:year>/<int:month>', views.blogs_with_date, name="blogs_with_date"),
+    re_path(r'^search/$', views.search, name='search'),
 ]
