@@ -1,7 +1,6 @@
+"此文件为项目通用工具"
 
-'''
-此文件为项目通用工具
-'''
+
 from django.contrib.auth.models import User
 from lib.models import Article, Type_all
 from django.core.paginator import Paginator
