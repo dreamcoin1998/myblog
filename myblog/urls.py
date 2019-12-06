@@ -18,11 +18,12 @@ from django.urls import path, include
 from . import views
 from django.conf.urls.static import static
 from django.conf import settings
+import xadmin
 
 
 urlpatterns = [
     path('', include('lib.urls')),
-    path('admin/', admin.site.urls),
+    path('xadmin/', xadmin.site.urls),
     path('', views.home, name='home'),
     path('ueditor/', include('DjangoUeditor.urls')),
     path('login/', views.login, name='login'),

@@ -6,6 +6,7 @@ from django.db.models.fields import exceptions
 from DjangoUeditor.models import UEditorField
 
 class test():
+    @property
     def read_num(self):
         try:
             ct = ContentType.objects.get_for_model(self)
@@ -19,6 +20,9 @@ class Type_all(models.Model):
 
     def __str__(self):
         return self.type_name
+    class Meta:
+        verbose_name = '文章类型'
+        verbose_name_plural = verbose_name
 
 class Article(models.Model, test):
     title = models.CharField(max_length=50, verbose_name="标题")
@@ -30,6 +34,8 @@ class Article(models.Model, test):
     blog_type = models.ForeignKey(Type_all, on_delete=models.DO_NOTHING, verbose_name="文章类型")
     class Meta:
         ordering = ['-pub_time']
+        verbose_name = '文章'
+        verbose_name_plural = verbose_name
 
     def __str__(self):
         return self.title
