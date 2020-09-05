@@ -130,7 +130,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+<<<<<<< HEAD
 # STATIC_ROOT = 'static'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+=======
+STATIC_ROOT = 'static'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+MEDIA_URL = '/static/uepload/'
+MEDIA_ROOT = './static/uepload/'
+>>>>>>> ff4beee9e22ec2d95c30bf7d9b9f1c3c26190a55
