@@ -1,0 +1,8 @@
+./venv
+# ./db.sqlite3
+./pid
+./log
+./.idea
+./gitignore
+./dockerignore
+./myblog/settings.py

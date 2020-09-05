@@ -1,5 +1,6 @@
 ./venv
 ./db.sqlite3
-./myblog.ini
 ./pid
 ./log
+./.idea
+./myblog/settings.py
