@@ -1,0 +1,43 @@
+name: Myblog
+
+# Run this workflow every time a new commit pushed to your repository
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branchers:
+      - master
+
+jobs:
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy to Server
+        uses: AEnterprise/rsync-deploy@v1.0
+        env:
+          DEPLOY_KEY: ${{ secrets.DEPLOY }}
+          ARGS: -avuz --progress --delete --exclude='*.pyc'
+          SERVER_PORT: "22"
+          FOLDER: ./
+          SERVER_IP: ${{ secrets.SSH_HOST }}
+          USERNAME: ${{ secrets.SSH_USERNAME }}
+          SERVER_DESTINATION: /home/ubuntu/myblog/
+      - name: Restart server
+        uses: cross-the-world/ssh-pipeline@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          user: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.DEPLOY }}
+          script:
+            cd /home/ubuntu/myblog/ &&
+            python3 manage.py makemigrations &&
+            python3 manage.py migrate &&
+            mkdir ./pid &&
+            mkdir ./log &&
+            touch ./pid/uwsgi-8000.pid &&
+            touch ./log/uwsgi-8000.log &&
+            su ubuntu &&
+            uwsgi -d --ini myblog.ini

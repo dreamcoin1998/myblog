@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% block title %}高俊斌的博客{% endblock %}
+
+{% block nav_home_active %}active{% endblock %}
+
+{% load staticfiles %}
+{% block header_extends %}
+    <link rel="stylesheet" href="{% static '/css/index.css' %}">
+{% endblock %}
+
+{% block about %}
+    <div class="header-banner" style="text-align: center; min-height: 257px; position: relative; margin-top: -30px; padding-top: 75px; margin-bottom: 20px; background-color: #4F5893;">
+        <div class="container" style="padding-right: 15px;padding-left: 15px;margin-right: auto;margin-left: auto;color: #fff;">
+            <h1 style="font-size: 3em;margin-bottom: 12px;">我的博客</h1>
+            <p style="font-weight: 300;line-height: 1.4;font-size: 1.5em;color: #B9BFE4;margin: 5px 0;">可以通过右侧博客分类、时间归档以及右上角搜索框</p>
+            <p style="font-weight: 300;line-height: 1.4;font-size: 1.5em;color: #B9BFE4;margin: 5px 0;">迅速找到你所需要的博客</p>
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10">
+                <div class="panel panel-default">
+                    <div class="panel-heading">{% block index_title %}博客列表——共有{{ page_of_articles.paginator.count}}篇博客，共{{ page_of_articles.paginator.page_range|length }}页，第{{ page_number }}页{% endblock %}</div>
+                    <div class="panel-body">
+                        {% block blog_type %}{% for article in page_of_articles.object_list %}
+                            <div class="blog">
+                                <h4>
+                                    <a href="{% url 'lib:article_detail' article.id %}" style="font-size: 18px;">
+                                        {{ article.title }}
+                                    </a>
+                                </h4>
+                                <p class="blog-info">
+                                    <span class="glyphicon glyphicon-tag"></span><a href="{% url 'lib:blog_with_type' article.blog_type.id %}">{{ article.blog_type }}</a>&nbsp;
+                                    <span class="glyphicon glyphicon-time"></span>{{ article.pub_time|date:'Y-m-d' }}&nbsp;
+                                    <span class="glyphicon glyphicon-eye-open">({{ article.read_num }})</span>
+                                </p>
+                                <p>{{ article.text | striptags | truncatechars:120 }}</p>
+                            </div>
+                            <br/>
+                            {% empty %}
+                            <div class="blog">
+                                <h3>-- 暂无博客，敬请期待 --</h3>
+                            </div>
+                        {% endfor %}{% endblock %}
+                        </ul>
+                    </div>
+                </div>
+                <div style="text-align:center;">
+                    <ul class="pagination">
+                        <li>
+                            {% if page_of_articles.has_previous %}
+                                <a href="?wd={{wd}}&page={{ page_of_articles.previous_page_number }}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            {% else %}
+                                <span aria-hidden="true">&laquo;</span>
+                            {% endif %}
+                        </li>
+                            {% for page_num in page_range %}
+                                {% if page_num == page_of_articles.number %}
+                                    <li class="active"><span>{{ page_num }}</span></li>
+                                {% else %}
+                                    {% if page_num == '...' %}
+                                        <li><span>{{ page_num }}</span></li>
+                                    {% else %}
+                                        <li><a href="?wd={{wd}}&page={{ page_num }}">{{ page_num }}</a></li>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        <li>
+                            {% if page_of_articles.has_next %}
+                                <a href="?wd={{wd}}&page={{ page_of_articles.next_page_number }}" aria-label="next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            {% else %}
+                                <span aria-hidden="true">&raquo;</span>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="hidden-xs col-sm-4 col-md-3 col-lg-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">博客分类</div>
+                    <div class="panel-body">
+                        <ul class="blog-types">
+                            {% for blog_type in article_list %}
+                                <li>
+                                    <a href="{% url 'lib:blog_with_type' blog_type.pk %}">
+                                        {{ blog_type.type_name }}({{ blog_type.num_article }})
+                                    </a>
+                                </li>
+                            {% empty %}
+                                <li>暂无分类</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">日期分类</div>
+                    <div class="panel-body">
+                        <ul class="blog-types">
+                            {% for blog_date, blog_count in article_dates.items %}
+                                <li>
+                                    <a href="{% url 'lib:blogs_with_date' blog_date.year blog_date.month %}">
+                                        {{ blog_date | date:'Y年m月'}}({{ blog_count }})
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block foot %}
+    <div id="footer" class="page-bottom" style="width: 100%;clear: both;background: #e7e7e7;margin-top: 2.5em;padding: 1em 0 0;color: #777;position: absolute;">
+        <div class="container" style="padding-right: 15px;padding-left: 15px;margin-right: auto;margin-left: auto;">
+            <div class="col-sm-6 hidden-xs">
+                <div class="content">
+                    <h4 class="title" style="color: #424242;font-weight: bold;border-bottom: 1px solid #aaa;padding-bottom: 7px;margin-bottom: 1em;margin-top: 1em;">关于本站</h4>
+                    <p>1、基于Django2.0+Bootstrap3开发</p>
+                    <p>2、主要发表本人的技术博客</p>
+                    <p>3、本站于 2019-2-23 开始建站</p>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="content">
+                    <h4 class="title" style="color: #424242;font-weight: bold;border-bottom: 1px solid #aaa;padding-bottom: 7px;margin-bottom: 1em;margin-top: 1em;">建议反馈</h4>
+                    <p>1、可在相应的博文底下评论</p>
+                    <p>2、发邮件到1285338586@qq.com</p>
+                </div>
+            </div>
+        </div>
+        <div class="copyright" style="text-align: center;padding: 0.5em 0;margin-top: 1.5em;background: #4F5893;color: #e7e7e7">
+            <span>闽ICP备19002967号-1 | Copyright&copy;2019 gaoblog.cn 版权所有</span>
+        </div>
+    </div>
+{% endblock %}

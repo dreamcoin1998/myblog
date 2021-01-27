@@ -1,0 +1,7 @@
+{% extends 'lib/index.html' %}
+{% block title %}{{ blog_type.type_name }}{% endblock %}
+{% block index_title %}
+分类：{{ blog_type.type_name }}--
+一共有{{page_of_articles.paginator.count}}篇文章
+<a href="{% url 'lib:index' %}">查看全部博客</a>
+{% endblock %}

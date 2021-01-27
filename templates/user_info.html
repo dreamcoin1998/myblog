@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    个人资料
+{% endblock %}
+
+{% block header_extends %}
+    <link rel="stylesheet" href="{% static '/css/home.css' %}">
+{% endblock %}
+
+{% block nav_home_active %}
+    active
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">我的信息</div>
+                        <div class="panel-body">
+                            <ul class="blog-types">
+                                {% if user.is_authenticated %}
+                                    <div>
+                                        <h4>用户名：{{ user.username }}</h4>
+                                        <span><a href="{% url 'change_first_name' %}?from={{ request.get_full_path }}">修改昵称</a></span>&nbsp;&nbsp;
+                                        <span><a href="{% url 'change_pwd' %}?from={{ request.get_full_path }}">修改密码</a></span>
+                                    </div>
+                                    <ul style="margin-top: 1em;">
+                                        <li style="list-style-type: none;">昵称：{{ user.first_name }}</li>
+                                        <li style="list-style-type: none;">邮箱:{% if user.email %}{{ user.email }}{% else %}未绑定{% endif %}</li>
+                                        <li style="list-style-type: none;">上一次登录时间：{{ user.last_login|date:'Y.m.d G:i' }}</li>
+                                    </ul>
+                                {% else %}
+                                    <span>未登录，跳转到首页...</span>
+                                    <script type="text/javascript">
+                                        window.location.href = '/';
+                                    </script>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">我的足迹</div>
+                        <div class="panel-body">
+                            <ul class="blog-types">
+                                {% if user.is_authenticated %}
+                                    <div>
+                                        <h4>个人信息统计</h4>
+                                    </div>
+                                    <ul style="margin-top: 1em;">
+                                        <li style="list-style-type: none;">---暂无此功能---</li>
+                                    </ul>
+                                {% else %}
+                                    <span>未登录，跳转到首页...</span>
+                                    <script type="text/javascript">
+                                        window.location.href = '/';
+                                    </script>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

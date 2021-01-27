@@ -1,0 +1,96 @@
+{% load staticfiles %}
+<html lang="zh-CN">
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-9315845147790340",
+        enable_page_level_ads: true
+      });
+    </script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static '/css/base.css' %}">
+    <link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}">
+    {% block header_extends %}{% endblock %}
+</head>
+<body>
+    <div class="navbar navbar-default" role="navigation" style="z-index: 1030;position: fixed; top: 0; right: 0; left: 0;">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{% url 'home' %}">高俊斌的个人空间</a>
+                <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="navbar-collapse" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav" >
+                    <li class="{% block nav_home_active %}{% endblock %}"><a href="{% url 'home' %}">首页</a></li>
+                    <li class="{% block nav_blog_active %}{% endblock %}"><a href="{% url 'lib:index' %}">博客</a></li>
+                </ul>
+                <form action="{% url 'lib:search' %}" class="navbar-form navbar-right">
+                    <input name="wd" type="text" placeholder="搜索博文" class="form-control">
+                    <button type="submit">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </form>
+                <ul class=" nav navbar-nav navbar-right ">
+                    {% if not user.is_authenticated %}
+                        <li><a href="{% url 'login' %}?from={{ request.get_full_path }}">登录</a></li>
+                        <li><a href="{% url 'register' %}?from={{ request.get_full_path }}">注册</a></li>
+                    {% else %}
+                        <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">您好，{{ user.first_name }}<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'user_info' %}">个人资料</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{% url 'logout' %}?from={{ request.get_full_path }}">注销登录</a></li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% block about %}
+    <div class="header-banner" style="text-align: center; min-height: 257px; position: relative; margin-top: -30px; padding-top: 75px; margin-bottom: 20px; background-color: #4F5893;">
+        <div class="container" style="padding-right: 15px;padding-left: 15px;margin-right: auto;margin-left: auto;color: #fff;">
+            <h1 style="font-size: 3em;margin-bottom: 12px;">Gao Blog</h1>
+            <p style="font-weight: 300;line-height: 1.4;font-size: 1.5em;color: #B9BFE4;margin: 5px 0;">热爱，坚持，奋斗——铸就成长</p>
+            <p style="font-weight: 300;line-height: 1.4;font-size: 1.5em;color: #B9BFE4;margin: 5px 0;">欢迎浏览，高俊斌的博客</p>
+        </div>
+    </div>
+    {% endblock %}
+    {% block content %}{% endblock %}
+    {% block foot %}
+        <div id="footer" class="page-bottom" style="width: 100%;clear: both;background: #e7e7e7;margin-top: 2.5em;padding: 1em 0 0;color: #777;">
+            <div class="container" style="padding-right: 15px;padding-left: 15px;margin-right: auto;margin-left: auto;">
+                <div class="col-sm-6 hidden-xs">
+                    <div class="content">
+                        <h4 class="title" style="color: #424242;font-weight: bold;border-bottom: 1px solid #aaa;padding-bottom: 7px;margin-bottom: 1em;margin-top: 1em;">关于本站</h4>
+                        <p>1、基于Django2.0+Bootstrap3开发</p>
+                        <p>2、主要发表本人的技术博客</p>
+                        <p>3、本站于 2019-2-23 开始建站</p>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="content">
+                        <h4 class="title" style="color: #424242;font-weight: bold;border-bottom: 1px solid #aaa;padding-bottom: 7px;margin-bottom: 1em;margin-top: 1em;">建议反馈</h4>
+                        <p>1、可在相应的博文底下评论</p>
+                        <p>2、发邮件到1285338586@qq.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright" style="text-align: center;padding: 0.5em 0;margin-top: 1.5em;background: #4F5893;color: #e7e7e7">
+                <span>闽ICP备19002967号-1 | Copyright&copy;2019 gaoblog.cn 版权所有</span>
+            </div>
+        </div>
+    {% endblock %}
+    <script type="text/javascript" src="{% static '/js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static '/js/bootstrap.min.js' %}"></script>
+</body>
+</html>

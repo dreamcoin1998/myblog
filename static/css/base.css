@@ -1,0 +1,17 @@
+*{
+    margin:0;
+    padding:0;
+    font-size: 14px;
+}
+
+div.comment-area{
+    margin-top: 2em;
+}
+h3.comment-area-title{
+    border-bottom: 1px solid #cccccc;
+    padding-bottom: 0.4em;
+}
+ul.navbar-right{
+    margin-right: 0;
+}
+
