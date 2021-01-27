@@ -39,5 +39,4 @@ jobs:
             mkdir ./log &&
             touch ./pid/uwsgi-8000.pid &&
             touch ./log/uwsgi-8000.log &&
-            su ubuntu &&
             uwsgi -d --ini myblog.ini
